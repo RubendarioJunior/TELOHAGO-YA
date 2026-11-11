@@ -3,53 +3,453 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TELOHAGO-YA | Soluciones Académicas</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <title>TELOHAGO-YA | Soluciones Académicas & Digitales</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#0b0b0b',
+                        brandCard: '#121212',
+                        brandRed: '#ce1212',
+                        brandRedHover: '#ea1515',
+                        brandBlue: '#1F51FF',
+                        brandBlueHover: '#0038ff',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 4s infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                        'grid-move': 'gridMove 20s linear infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%': { opacity: '0.3', transform: 'scale(0.98)' },
+                            '100%': { opacity: '0.7', transform: 'scale(1.05)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' }
+                        },
+                        gridMove: {
+                            '0%': { backgroundPosition: '0 0' },
+                            '100%': { backgroundPosition: '50px 50px' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos personalizados para fondo dinámico */
+        body {
+            background-color: #0b0b0b;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
 
-    <!-- Encabezado / Menú -->
-    <header class="navbar">
-        <div class="logo">
-            <span>TELOHAGO</span><span class="highlight">-YA</span>
+        /* Background Grid */
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        /* Glow Orbs */
+        .glow-red {
+            background: radial-gradient(circle, rgba(206, 18, 18, 0.35) 0%, rgba(11, 11, 11, 0) 70%);
+        }
+
+        .glow-blue {
+            background: radial-gradient(circle, rgba(31, 81, 255, 0.35) 0%, rgba(11, 11, 11, 0) 70%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0b0b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f1f1f;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ce1212;
+        }
+
+        /* Card Hover Effects */
+        .service-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px -10px rgba(31, 81, 255, 0.3), 0 0 15px -5px rgba(206, 18, 18, 0.2);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased relative">
+
+    <!-- EFECTOS DE FONDO DINÁMICOS -->
+    <div class="fixed inset-0 pointer-events-none z-0 cyber-grid opacity-60"></div>
+    
+    <!-- Esferas de luz neón de fondo -->
+    <div class="fixed -top-40 -left-40 w-[500px] h-[500px] glow-red rounded-full pointer-events-none z-0 animate-pulse-glow"></div>
+    <div class="fixed top-1/3 -right-40 w-[600px] h-[600px] glow-blue rounded-full pointer-events-none z-0 animate-pulse-glow" style="animation-delay: 2s;"></div>
+    <div class="fixed -bottom-40 left-1/4 w-[500px] h-[500px] glow-red rounded-full pointer-events-none z-0 animate-pulse-glow" style="animation-delay: 1s;"></div>
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-brandDark/80 border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-brandRed to-brandBlue p-[2px] transition-transform duration-300 group-hover:scale-105">
+                    <div class="w-full h-full bg-brandDark rounded-[6px] flex items-center justify-center">
+                        <i class="fa-solid fa-laptop-code text-brandRed group-hover:text-brandBlue transition-colors"></i>
+                    </div>
+                </div>
+                <span class="text-2xl font-extrabold tracking-wider text-white">
+                    TELOHAGO<span class="text-brandRed group-hover:text-brandBlue transition-colors">-YA</span>
+                </span>
+            </a>
+
+            <!-- Nav Links Desktop -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+                <a href="#servicios" class="text-gray-300 hover:text-brandBlue transition-colors">Servicios</a>
+                <a href="#nosotros" class="text-gray-300 hover:text-brandRed transition-colors">¿Por qué elegirnos?</a>
+                <a href="#pasos" class="text-gray-300 hover:text-brandBlue transition-colors">¿Cómo funciona?</a>
+            </nav>
+
+            <!-- Botón WhatsApp Navbar -->
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/584249077307?text=Hola!%20Necesito%20ayuda%20con%20un%20trabajo" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="flex items-center gap-2 bg-gradient-to-r from-brandRed to-brandRedHover hover:from-brandBlue hover:to-brandBlueHover text-white px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-300 shadow-lg shadow-brandRed/30 hover:shadow-brandBlue/40 hover:-translate-y-0.5">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Escríbenos al 0424-9077307</span>
+                </a>
+            </div>
         </div>
-        <a href="https://wa.me/584249077307" target="_blank" class="btn-primary">¡Contáctanos!</a>
     </header>
 
-    <!-- Sección Principal (Hero) -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>¿No tienes tiempo para hacer tus trabajos?</h1>
-            <p>Relájate y vuelve a dormir tranquilo. Si trabajas o necesitas ayuda para pasar esa materia que tanto te cuesta, ¡nosotros nos encargamos!</p>
-            <div class="cta-group">
-                <a href="https://wa.me/584249077307" target="_blank" class="btn-cta">Haremos tu trabajo enseguida ⚡</a>
-            </div>
-        </div>
-    </section>
+    <main class="relative z-10">
 
-    <!-- Sección de Servicios -->
-    <section class="services">
-        <h2>Nuestros Servicios</h2>
-        <div class="cards-grid">
-            <div class="card">
-                <h3>Contaduría Pública & Ciencias Fiscales</h3>
-                <p>Resolución de ejercicios, estados financieros y proyectos académicos.</p>
-            </div>
-            <div class="card">
-                <h3>Programación & Diseños Digitales</h3>
-                <p>Desarrollo de código, sitios web, ilustraciones y diapositivas profesionales.</p>
-            </div>
-            <div class="card">
-                <h3>Ensayos & Trabajos Académicos</h3>
-                <p>Investigaciones completas, ensayos argumentativos y redacción técnica.</p>
-            </div>
-        </div>
-    </section>
+        <!-- HERO SECTION -->
+        <section class="min-h-[85vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16">
+            <div class="max-w-5xl mx-auto text-center">
+                
+                <!-- Badge destacada -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brandBlue/30 bg-brandBlue/10 text-brandBlue text-xs sm:text-sm font-semibold mb-8 animate-bounce">
+                    <span class="w-2 h-2 rounded-full bg-brandBlue"></span>
+                    Soluciones Académicas & Digitales Inmediatas
+                </div>
 
-    <!-- Pie de Página (Footer) -->
-    <footer>
-        <p>© TELOHAGO-YA - Todos los trabajos académicos</p>
-        <p class="phone">📲 WhatsApp: <strong>0424-9077307</strong></p>
+                <!-- Título Principal -->
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-tight mb-6">
+                    ¿No tienes tiempo? <br>
+                    <span class="bg-gradient-to-r from-brandRed via-white to-brandBlue bg-clip-text text-transparent">
+                        TELOHAGO-YA
+                    </span> es tu solución.
+                </h1>
+
+                <!-- Subtítulo -->
+                <p class="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto mb-10 font-normal leading-relaxed">
+                    Si trabajas, estudias o necesitas ayuda para pasar esa materia difíciles, relájate y vuelve a dormir tranquilo 😴. Nosotros nos encargamos de tus asignaciones con calidad profesional.
+                </p>
+
+                <!-- Botones Call To Action -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="https://wa.me/584249077307?text=Hola!%20Quiero%20hacer%20un%20trabajo%20enseguida" 
+                       target="_blank"
+                       class="w-full sm:w-auto flex items-center justify-center gap-3 bg-brandRed hover:bg-brandRedHover text-white text-lg font-bold px-8 py-4 rounded-xl shadow-xl shadow-brandRed/40 transition-all duration-300 hover:scale-105">
+                        <span>Haremos tu trabajo enseguida</span>
+                        <i class="fa-solid fa-bolt text-yellow-300"></i>
+                    </a>
+                    <a href="#servicios" 
+                       class="w-full sm:w-auto flex items-center justify-center gap-2 border border-white/20 hover:border-brandBlue bg-brandCard/50 backdrop-blur hover:bg-brandBlue/10 text-white font-semibold text-lg px-8 py-4 rounded-xl transition-all duration-300">
+                        <span>Ver servicios</span>
+                        <i class="fa-solid fa-arrow-down text-brandBlue"></i>
+                    </a>
+                </div>
+
+                <!-- Mini métricas/marcas de confianza -->
+                <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto border-t border-white/10 pt-8 text-center">
+                    <div>
+                        <p class="text-2xl font-bold text-white">100%</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider">Confidencial</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold text-brandBlue">Entrega</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider">A Tiempo</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold text-brandRed">Garantizado</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider">Revisión Incluida</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold text-white">Atención</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider">Directa 24/7</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE SERVICIOS COMPLETA -->
+        <section id="servicios" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4">
+                    Todo lo que <span class="text-brandBlue">Hacemos por Ti</span>
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    Abarcamos múltiples áreas del conocimiento y diseño digital para garantizar la máxima calificación en tus proyectos.
+                </p>
+            </div>
+
+            <!-- Grid de Tarjetas de Servicios -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Servicio 1: Ensayos e Investigaciones -->
+                <div class="service-card bg-brandCard border border-white/10 hover:border-brandBlue/50 p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-xl bg-brandBlue/10 border border-brandBlue/30 flex items-center justify-center text-brandBlue text-2xl mb-6 group-hover:bg-brandBlue group-hover:text-white transition-all">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Ensayos e Investigaciones</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Redacción académica impecable, monografías, análisis crítico, tesis, informes de laboratorio y proyectos con normas APA, IEEE o Vancouver.
+                    </p>
+                    <ul class="text-xs text-gray-300 space-y-2 mb-6">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brandBlue"></i> Redacción libre de plagio</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brandBlue"></i> Formato y referencias citadas</li>
+                    </ul>
+                    <a href="https://wa.me/584249077307?text=Hola,%20necesito%20ayuda%20con%20un%20Ensayo%20o%20Investigación" target="_blank" class="text-xs font-bold text-brandBlue hover:text-white flex items-center gap-2">
+                        Pedir este servicio <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Servicio 2: Diapositivas & Presentaciones -->
+                <div class="service-card bg-brandCard border border-white/10 hover:border-brandRed/50 p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-xl bg-brandRed/10 border border-brandRed/30 flex items-center justify-center text-brandRed text-2xl mb-6 group-hover:bg-brandRed group-hover:text-white transition-all">
+                        <i class="fa-solid fa-display"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Diapositivas & Presentaciones</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Diseño visual impactante en PowerPoint y Canva. Resúmenes ejecutivos, animaciones, infografías y láminas interactivas para tus defensas.
+                    </p>
+                    <ul class="text-xs text-gray-300 space-y-2 mb-6">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brandRed"></i> Diseños 100% personalizados</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brandRed"></i> Fórmulas y gráficos incluidos</li>
+                    </ul>
+                    <a href="https://wa.me/584249077307?text=Hola,%20necesito%20ayuda%20con%20Diapositivas" target="_blank" class="text-xs font-bold text-brandRed hover:text-white flex items-center gap-2">
+                        Pedir este servicio <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Servicio 3: Diseños Digitales e Ilustraciones -->
+                <div class="service-card bg-brandCard border border-white/10 hover:border-brandBlue/50 p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-xl bg-brandBlue/10 border border-brandBlue/30 flex items-center justify-center text-brandBlue text-2xl mb-6 group-hover:bg-brandBlue group-hover:text-white transition-all">
+                        <i class="fa-solid fa-pen-nib"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Diseños Digitales e Ilustraciones</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Creación de logos, vectores, flyers publicitarios, banners, diagramas esquemáticos, retoque fotográfico e ilustración personalizada.
+                    </p>
+                    <ul class="text-xs text-gray-300 space-y-2 mb-6">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brandBlue"></i> Formatos de alta resolución</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brandBlue"></i> Archivos editables disponibles</li>
+                    </ul>
+                    <a href="https://wa.me/584249077307?text=Hola,%20necesito%20ayuda%20con%20Diseño%20Digital" target="_blank" class="text-xs font-bold text-brandBlue hover:text-white flex items-center gap-2">
+                        Pedir este servicio <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Servicio 4: Programación & Código Web -->
+                <div class="service-card bg-brandCard border border-white/10 hover:border-brandRed/50 p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-xl bg-brandRed/10 border border-brandRed/30 flex items-center justify-center text-brandRed text-2xl mb-6 group-hover:bg-brandRed group-hover:text-white transition-all">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Programación & Código</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Desarrollo de proyectos en HTML, CSS, JavaScript, Python, C++, bases de datos SQL y resolución de algoritmos o guías de programación.
+                    </p>
+                    <ul class="text-xs text-gray-300 space-y-2 mb-6">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brandRed"></i> Código limpio y comentado</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brandRed"></i> Explicación de lógica incluida</li>
+                    </ul>
+                    <a href="https://wa.me/584249077307?text=Hola,%20necesito%20ayuda%20con%20Programación" target="_blank" class="text-xs font-bold text-brandRed hover:text-white flex items-center gap-2">
+                        Pedir este servicio <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Servicio 5: Contaduría Pública & Ciencias Fiscales -->
+                <div class="service-card bg-brandCard border border-white/10 hover:border-brandBlue/50 p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-xl bg-brandBlue/10 border border-brandBlue/30 flex items-center justify-center text-brandBlue text-2xl mb-6 group-hover:bg-brandBlue group-hover:text-white transition-all">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Contaduría & Ciencias Fiscales</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Elaboración de estados financieros, balances generales, registros contables, tributos, auditoría y resolución de ejercicios complejos.
+                    </p>
+                    <ul class="text-xs text-gray-300 space-y-2 mb-6">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brandBlue"></i> Hojas de cálculo detalladas</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brandBlue"></i> Cálculos exactos y verificados</li>
+                    </ul>
+                    <a href="https://wa.me/584249077307?text=Hola,%20necesito%20ayuda%20con%20Contaduría%20o%20Fiscales" target="_blank" class="text-xs font-bold text-brandBlue hover:text-white flex items-center gap-2">
+                        Pedir este servicio <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- Servicio 6: Tareas & Ejercicios Prácticos -->
+                <div class="service-card bg-brandCard border border-white/10 hover:border-brandRed/50 p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-xl bg-brandRed/10 border border-brandRed/30 flex items-center justify-center text-brandRed text-2xl mb-6 group-hover:bg-brandRed group-hover:text-white transition-all">
+                        <i class="fa-solid fa-square-root-variable"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Resolución de Ejercicios</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Solución paso a paso de guías matemáticas, física, química, estadística, finanzas y cuestionarios evaluativos.
+                    </p>
+                    <ul class="text-xs text-gray-300 space-y-2 mb-6">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brandRed"></i> Procedimiento paso a paso</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brandRed"></i> Legibilidad y orden claro</li>
+                    </ul>
+                    <a href="https://wa.me/584249077307?text=Hola,%20necesito%20ayuda%20con%20Ejercicios" target="_blank" class="text-xs font-bold text-brandRed hover:text-white flex items-center gap-2">
+                        Pedir este servicio <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECCIÓN POR QUÉ ELEGIRNOS -->
+        <section id="nosotros" class="py-20 px-4 sm:px-6 lg:px-8 bg-brandCard/40 border-y border-white/10">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    
+                    <div>
+                        <span class="text-brandRed font-bold text-sm tracking-wider uppercase mb-2 block">Ventajas Exclusivas</span>
+                        <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-6">
+                            ¿Por qué confiar en <span class="text-brandRed">TELOHAGO-YA</span>?
+                        </h2>
+                        <p class="text-gray-400 mb-8 leading-relaxed">
+                            Entendemos el estrés estudiantil y laboral. Nuestra meta es darte la tranquilidad de entregar un trabajo sobresaliente sin descuidar tu descanso o empleo.
+                        </p>
+
+                        <div class="space-y-6">
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 rounded-lg bg-brandRed/20 border border-brandRed/40 flex items-center justify-center shrink-0 text-brandRed text-xl">
+                                    <i class="fa-solid fa-clock-fast"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-white mb-1">Entregas Ultra Rápida</h4>
+                                    <p class="text-sm text-gray-400">Trabajamos bajo presión de tiempo para entregarte antes de tu fecha límite.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 rounded-lg bg-brandBlue/20 border border-brandBlue/40 flex items-center justify-center shrink-0 text-brandBlue text-xl">
+                                    <i class="fa-solid fa-user-shield"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-white mb-1">Privacidad 100% Garantizada</h4>
+                                    <p class="text-sm text-gray-400">Tu identidad y los detalles de tus asignaciones se mantienen bajo estricta confidencialidad.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 rounded-lg bg-brandRed/20 border border-brandRed/40 flex items-center justify-center shrink-0 text-brandRed text-xl">
+                                    <i class="fa-solid fa-file-circle-check"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-white mb-1">Calidad Profesional & Revisiones</h4>
+                                    <p class="text-sm text-gray-400">Revisamos tu contenido detenidamente para garantizar cumplimiento completo con los requerimientos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Banner de llamada rápida interactiva -->
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-brandRed to-brandBlue rounded-3xl blur-xl opacity-30"></div>
+                        <div class="relative bg-brandCard border border-white/10 p-8 sm:p-10 rounded-3xl text-center">
+                            <i class="fa-solid fa-moon text-5xl text-brandBlue mb-4 animate-float"></i>
+                            <h3 class="text-2xl font-bold text-white mb-3">Vuelve a dormir tranquilo</h3>
+                            <p class="text-gray-400 text-sm mb-8">
+                                Envíanos tu guía, requisitos o tema de investigación ahora mismo y despreocúpate.
+                            </p>
+                            <a href="https://wa.me/584249077307?text=Hola!%20Haremos%20mi%20trabajo%20enseguida" 
+                               target="_blank" 
+                               class="inline-flex items-center justify-center gap-3 w-full bg-brandRed hover:bg-brandRedHover text-white font-bold py-4 rounded-xl shadow-lg transition-all">
+                                <i class="fa-brands fa-whatsapp text-2xl"></i>
+                                <span>Haremos tu trabajo enseguida</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN PASOS -->
+        <section id="pasos" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-12">
+                ¿Cómo es el proceso en <span class="text-brandBlue">3 Pasos</span>?
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-brandCard border border-white/10 p-8 rounded-2xl relative">
+                    <span class="w-10 h-10 bg-brandBlue text-white font-bold rounded-full flex items-center justify-center mx-auto mb-4">1</span>
+                    <h3 class="text-lg font-bold text-white mb-2">Envíanos tu Pauta</h3>
+                    <p class="text-xs text-gray-400">Mándanos los requerimientos, la materia y la fecha de entrega por WhatsApp.</p>
+                </div>
+
+                <div class="bg-brandCard border border-white/10 p-8 rounded-2xl relative">
+                    <span class="w-10 h-10 bg-brandRed text-white font-bold rounded-full flex items-center justify-center mx-auto mb-4">2</span>
+                    <h3 class="text-lg font-bold text-white mb-2">Manos a la Obra</h3>
+                    <p class="text-xs text-gray-400">Elaboramos tu asignación con máximo detalle, rapidez y cero plagio.</p>
+                </div>
+
+                <div class="bg-brandCard border border-white/10 p-8 rounded-2xl relative">
+                    <span class="w-10 h-10 bg-emerald-500 text-white font-bold rounded-full flex items-center justify-center mx-auto mb-4">3</span>
+                    <h3 class="text-lg font-bold text-white mb-2">Recibe y Aprueba</h3>
+                    <p class="text-xs text-gray-400">Te enviamos el trabajo completado listo para entregar o presentar.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-white/10 py-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <div class="flex items-center gap-3">
+                <span class="text-xl font-extrabold text-white tracking-wider">
+                    TELOHAGO<span class="text-brandRed">-YA</span>
+                </span>
+                <span class="text-xs text-gray-500">| Soluciones Académicas & Digitales</span>
+            </div>
+
+            <div class="text-center md:text-right">
+                <p class="text-sm text-gray-300 font-semibold mb-1">
+                    📲 Contacto directo WhatsApp: <a href="https://wa.me/584249077307" target="_blank" class="text-brandBlue hover:underline">0424-9077307</a>
+                </p>
+                <p class="text-xs text-gray-600">© TELOHAGO-YA. Todos los derechos reservados.</p>
+            </div>
+
+        </div>
     </footer>
 
 </body>
